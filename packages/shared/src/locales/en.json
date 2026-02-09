@@ -1,0 +1,17 @@
+{
+  "appName": "PulseIA",
+  "common": {
+    "language": "Language",
+    "welcome": "Welcome"
+  },
+  "webchat": {
+    "title": "PulseIA Webchat",
+    "subtitle": "Employee chat placeholder",
+    "inputPlaceholder": "Type a message..."
+  },
+  "dashboard": {
+    "title": "PulseIA Dashboard",
+    "subtitle": "CEO/HR overview placeholder",
+    "protected": "Protected route placeholder"
+  }
+}

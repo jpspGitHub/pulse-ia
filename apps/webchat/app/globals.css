@@ -1,0 +1,88 @@
+:root {
+  color-scheme: light;
+  --pulseia-bg: #f5f2ed;
+  --pulseia-card: #ffffff;
+  --pulseia-accent: #0f766e;
+  --pulseia-text: #1f2937;
+  --pulseia-muted: #6b7280;
+  --pulseia-border: #e5e7eb;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'IBM Plex Sans', system-ui, sans-serif;
+  background: linear-gradient(180deg, #fdfbf8 0%, #f4f1eb 100%);
+  color: var(--pulseia-text);
+}
+
+main {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 24px;
+}
+
+.pulseia-card {
+  background: var(--pulseia-card);
+  border: 1px solid var(--pulseia-border);
+  border-radius: 20px;
+  padding: 32px;
+  box-shadow: 0 24px 60px rgba(15, 23, 42, 0.08);
+  max-width: 560px;
+  width: 100%;
+}
+
+.pulseia-card__header h1 {
+  margin: 0 0 8px;
+  font-size: 28px;
+  letter-spacing: -0.02em;
+}
+
+.pulseia-card__header p {
+  margin: 0;
+  color: var(--pulseia-muted);
+}
+
+.pulseia-card__body {
+  margin-top: 24px;
+}
+
+.pulseia-input {
+  display: flex;
+  gap: 12px;
+}
+
+.pulseia-input input {
+  flex: 1;
+  padding: 12px 16px;
+  border-radius: 12px;
+  border: 1px solid var(--pulseia-border);
+}
+
+.pulseia-input button {
+  padding: 12px 16px;
+  border-radius: 12px;
+  border: none;
+  background: var(--pulseia-accent);
+  color: white;
+}
+
+.pulseia-lang {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 16px;
+  font-size: 14px;
+  color: var(--pulseia-muted);
+}
+
+.pulseia-lang select {
+  padding: 6px 10px;
+  border-radius: 8px;
+  border: 1px solid var(--pulseia-border);
+}

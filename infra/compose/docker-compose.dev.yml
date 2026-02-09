@@ -1,0 +1,138 @@
+version: '3.9'
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: pulseia
+      POSTGRES_PASSWORD: pulseia
+      POSTGRES_DB: pulseia
+    ports:
+      - '5432:5432'
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U pulseia']
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - '6379:6379'
+    volumes:
+      - redisdata:/data
+    healthcheck:
+      test: ['CMD', 'redis-cli', 'ping']
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  api:
+    build:
+      context: ../../
+      dockerfile: apps/api/Dockerfile
+    working_dir: /app
+    command: sh -c "pnpm install && pnpm --filter @pulseia/api dev"
+    volumes:
+      - ../../:/app
+      - /app/node_modules
+    environment:
+      NODE_ENV: development
+      PORT: 4000
+      DATABASE_URL: postgres://pulseia:pulseia@postgres:5432/pulseia
+      JWT_SECRET: dev-secret
+      JWT_EXPIRES_IN: 1h
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      CORS_ORIGIN: http://localhost:3000,http://localhost:3001
+    ports:
+      - '4000:4000'
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    healthcheck:
+      test: ['CMD-SHELL', 'wget -qO- http://localhost:4000/health || exit 1']
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  worker:
+    build:
+      context: ../../
+      dockerfile: apps/worker/Dockerfile
+    working_dir: /app
+    command: sh -c "pnpm install && pnpm --filter @pulseia/worker dev"
+    volumes:
+      - ../../:/app
+      - /app/node_modules
+    environment:
+      NODE_ENV: development
+      PORT: 4100
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+    ports:
+      - '4100:4100'
+    depends_on:
+      redis:
+        condition: service_healthy
+    healthcheck:
+      test: ['CMD-SHELL', 'wget -qO- http://localhost:4100/health || exit 1']
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  webchat:
+    build:
+      context: ../../
+      dockerfile: apps/webchat/Dockerfile
+    working_dir: /app
+    command: sh -c "pnpm install && pnpm --filter @pulseia/webchat dev --hostname 0.0.0.0 --port 3000"
+    volumes:
+      - ../../:/app
+      - /app/node_modules
+    environment:
+      NEXT_PUBLIC_APP_NAME: PulseIA Webchat
+      NEXT_PUBLIC_DEFAULT_LOCALE: en
+      NEXT_PUBLIC_API_URL: http://localhost:4000
+    ports:
+      - '3000:3000'
+    depends_on:
+      api:
+        condition: service_healthy
+    healthcheck:
+      test: ['CMD-SHELL', 'wget -qO- http://localhost:3000 || exit 1']
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  dashboard:
+    build:
+      context: ../../
+      dockerfile: apps/dashboard/Dockerfile
+    working_dir: /app
+    command: sh -c "pnpm install && pnpm --filter @pulseia/dashboard dev --hostname 0.0.0.0 --port 3001"
+    volumes:
+      - ../../:/app
+      - /app/node_modules
+    environment:
+      NEXT_PUBLIC_APP_NAME: PulseIA Dashboard
+      NEXT_PUBLIC_DEFAULT_LOCALE: en
+      NEXT_PUBLIC_API_URL: http://localhost:4000
+    ports:
+      - '3001:3001'
+    depends_on:
+      api:
+        condition: service_healthy
+    healthcheck:
+      test: ['CMD-SHELL', 'wget -qO- http://localhost:3001 || exit 1']
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  pgdata:
+  redisdata:

@@ -1,0 +1,76 @@
+:root {
+  color-scheme: light;
+  --pulseia-bg: #f0f4f8;
+  --pulseia-card: #ffffff;
+  --pulseia-accent: #1d4ed8;
+  --pulseia-text: #0f172a;
+  --pulseia-muted: #64748b;
+  --pulseia-border: #e2e8f0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Manrope', system-ui, sans-serif;
+  background: radial-gradient(circle at top left, #f8fafc 0%, #eef2ff 45%, #e2e8f0 100%);
+  color: var(--pulseia-text);
+}
+
+main {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 24px;
+}
+
+.pulseia-card {
+  background: var(--pulseia-card);
+  border: 1px solid var(--pulseia-border);
+  border-radius: 18px;
+  padding: 32px;
+  box-shadow: 0 30px 70px rgba(15, 23, 42, 0.1);
+  max-width: 640px;
+  width: 100%;
+}
+
+.pulseia-card__header h1 {
+  margin: 0 0 8px;
+  font-size: 30px;
+  letter-spacing: -0.02em;
+}
+
+.pulseia-card__header p {
+  margin: 0;
+  color: var(--pulseia-muted);
+}
+
+.pulseia-card__body {
+  margin-top: 24px;
+  display: grid;
+  gap: 12px;
+}
+
+.pulseia-link {
+  color: var(--pulseia-accent);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.pulseia-lang {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 16px;
+  font-size: 14px;
+  color: var(--pulseia-muted);
+}
+
+.pulseia-lang select {
+  padding: 6px 10px;
+  border-radius: 8px;
+  border: 1px solid var(--pulseia-border);
+}
