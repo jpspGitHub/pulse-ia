@@ -11,17 +11,24 @@
   "dependencies": {
     "@pulseia/shared": "workspace:*",
     "@pulseia/ui": "workspace:*",
-    "next": "^14.2.5",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
+    "next": "^16.1.6",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4",
     "zod": "^3.23.8"
   },
   "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@next/eslint-plugin-next": "^16.1.6",
     "@pulseia/config": "workspace:*",
     "@types/node": "^20.11.30",
     "@types/react": "^18.2.64",
     "@types/react-dom": "^18.2.21",
-    "eslint": "^8.57.0",
-    "typescript": "^5.5.4"
+    "eslint": "^10.0.0",
+    "eslint-config-next": "16.1.6",
+    "eslint-plugin-next": "^0.0.0",
+    "eslint-plugin-react": "^7.37.5",
+    "eslint-plugin-react-hooks": "^7.0.1",
+    "typescript": "^5.5.4",
+    "typescript-eslint": "^8.55.0"
   }
 }

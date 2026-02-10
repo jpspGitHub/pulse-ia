@@ -9,7 +9,7 @@
   },
   "exports": {
     "./prettier": "./prettier.cjs",
-    "./eslint/next": "./eslint/next.cjs",
+    "./eslint/next": "./eslint/next.mjs",
     "./eslint/node": "./eslint/node.cjs",
     "./tsconfig/base": "./tsconfig/base.json"
   }
