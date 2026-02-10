@@ -1,8 +1,8 @@
 {
   "extends": "../../packages/config/tsconfig/base.json",
   "compilerOptions": {
-    "module": "CommonJS",
-    "moduleResolution": "Node",
+    "module": "NodeNext", // Permite manejar mejor archivos .mjs y .cjs
+    "moduleResolution": "NodeNext", // Recomendado para Node.js moderno y NestJS 10+
     "outDir": "./dist",
     "baseUrl": ".",
     "paths": {
@@ -11,7 +11,8 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "sourceMap": true,
-    "noEmit": false
+    "noEmit": false,
+    "esModuleInterop": true // Crucial para importar paquetes que no son ESM puro
   },
-  "include": ["src"]
+  "include": ["src", "eslint.config.mjs"] // Añade el config de ESLint para que TS lo entienda
 }
