@@ -1,8 +1,8 @@
 {
   "extends": "../../packages/config/tsconfig/base.json",
   "compilerOptions": {
-    "module": "CommonJS",
-    "moduleResolution": "Node",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
     "outDir": "./dist",
     "baseUrl": ".",
     "paths": {
@@ -10,8 +10,7 @@
     },
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "sourceMap": true,
-    "noEmit": false
+    "esModuleInterop": true
   },
   "include": ["src"]
 }

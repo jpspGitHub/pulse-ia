@@ -9,4 +9,4 @@ async function bootstrap() {
   console.log(`Worker health listening on http://localhost:${env.PORT}/health`);
 }
 
-bootstrap();
+void bootstrap();
