@@ -1,21 +1,20 @@
 import { Injectable } from '@nestjs/common';
-import { db } from './db';
+import { DbClient } from '../common/db';
+import { LocaleCode } from '../domain/enums/locale.enum';
+import { UserStatus } from '../domain/enums/user-status.enum';
 
 export type UserRecord = {
   id: string;
   tenant_id: string;
   email: string;
-  name: string;
-  password_hash: string | null;
+  full_name: string | null;
+  status: UserStatus;
+  preferred_locale: LocaleCode;
 };
 
 @Injectable()
 export class UsersRepository {
   async findByEmail(email: string): Promise<UserRecord | null> {
-    const result = await db.query<UserRecord>(
-      'SELECT id, tenant_id, email, name, password_hash FROM users WHERE email = $1 LIMIT 1',
-      [email],
-    );
-    return result.rows[0] ?? null;
+    return DbClient.callProcedureSingle<UserRecord>('api_get_user_by_email', [email]);
   }
 }

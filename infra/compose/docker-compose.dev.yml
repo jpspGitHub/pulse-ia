@@ -38,6 +38,7 @@ services:
     volumes:
       - ../../:/app
       - /app/node_modules
+      - /app/apps/api/node_modules
     environment:
       NODE_ENV: development
       PORT: 4000
@@ -69,6 +70,7 @@ services:
     volumes:
       - ../../:/app
       - /app/node_modules
+      - /app/apps/worker/node_modules
     environment:
       NODE_ENV: development
       PORT: 4100

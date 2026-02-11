@@ -1,9 +1,6 @@
-import { Pool } from 'pg';
-import { env } from '../env';
+import { DbClient } from '../common/db';
 
-export const db = new Pool({
-  connectionString: env.DATABASE_URL,
-});
+export const db = DbClient.pool;
 
 export async function checkDbConnectivity() {
   const client = await db.connect();
