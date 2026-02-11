@@ -31,6 +31,17 @@ export class AppExceptionFilter implements ExceptionFilter {
       return;
     }
 
+    if (exception instanceof Error) {
+      response.status(500).json({
+        error: {
+          code: 'INTERNAL_ERROR',
+          message: exception.message,
+          details: null,
+        },
+      });
+      return;
+    }
+
     response.status(500).json({
       error: {
         code: 'INTERNAL_ERROR',

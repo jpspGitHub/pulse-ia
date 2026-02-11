@@ -12,7 +12,8 @@
     "experimentalDecorators": true,
     "sourceMap": true,
     "noEmit": false,
-    "esModuleInterop": true // Crucial para importar paquetes que no son ESM puro
+    "esModuleInterop": true, // Crucial para importar paquetes que no son ESM puro
+    "types": ["node"]
   },
   "include": ["src", "eslint.config.mjs"] // Añade el config de ESLint para que TS lo entienda
 }
