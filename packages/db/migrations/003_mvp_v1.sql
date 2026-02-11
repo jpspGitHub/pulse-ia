@@ -113,6 +113,7 @@ ALTER TABLE users DROP COLUMN IF EXISTS password_hash;
 ALTER TABLE memberships ADD COLUMN IF NOT EXISTS id uuid DEFAULT gen_random_uuid();
 UPDATE memberships SET id = gen_random_uuid() WHERE id IS NULL;
 UPDATE memberships SET role = 'employee' WHERE role IS NULL OR role NOT IN ('employee', 'manager', 'admin');
+ALTER TABLE memberships ALTER COLUMN role DROP DEFAULT;
 ALTER TABLE memberships ALTER COLUMN role TYPE membership_role USING role::membership_role;
 ALTER TABLE memberships ALTER COLUMN role SET DEFAULT 'employee';
 ALTER TABLE memberships DROP CONSTRAINT IF EXISTS memberships_pkey;

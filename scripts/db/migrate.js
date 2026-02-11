@@ -1,7 +1,7 @@
 const { readdir, readFile } = require('node:fs/promises');
 const path = require('node:path');
 const { Client } = require('pg');
-require('dotenv').config();
+const { loadEnv } = require('./env');
 
 async function runMigrations(client) {
   const migrationsDir = path.resolve(__dirname, '..', '..', 'packages', 'db', 'migrations');
@@ -15,9 +15,12 @@ async function runMigrations(client) {
 }
 
 async function run() {
-  const databaseUrl = process.env.DATABASE_URL;
+  const env = loadEnv();
+  const databaseUrl = env.databaseUrl;
   if (!databaseUrl) {
     console.error('DATABASE_URL is required.');
+    console.error(`Loaded env files: ${env.loaded.length > 0 ? env.loaded.join(', ') : 'none'}`);
+    console.error(`Checked paths: ${env.candidates.join(', ')}`);
     process.exit(1);
   }
 
